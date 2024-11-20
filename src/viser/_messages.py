@@ -1028,7 +1028,7 @@ class GuiRgbaProps(GuiBaseProps):
 
 @dataclasses.dataclass
 class GuiRgbaMessage(Message, tag="GuiComponentMessage"):
-    value: Tuple[int, int, int, int]
+    value: str
     uuid: str
     container_uuid: str
     props: GuiRgbaProps

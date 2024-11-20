@@ -352,11 +352,11 @@ class GuiRgbHandle(GuiInputHandle[Tuple[int, int, int]], GuiRgbProps):
     """
 
 
-class GuiRgbaHandle(GuiInputHandle[Tuple[int, int, int, int]], GuiRgbaProps):
+class GuiRgbaHandle(GuiInputHandle[str], GuiRgbaProps):
     """Handle for RGBA color inputs.
 
     .. attribute:: value
-       :type: tuple[int, int, int, int]
+       :type: str
 
        Value of the input. Synchronized automatically when assigned.
     """

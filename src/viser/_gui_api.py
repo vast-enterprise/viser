@@ -1473,7 +1473,7 @@ class GuiApi:
     def add_rgba(
         self,
         label: str,
-        initial_value: tuple[int, int, int, int],
+        initial_value: str,
         disabled: bool = False,
         visible: bool = True,
         hint: str | None = None,

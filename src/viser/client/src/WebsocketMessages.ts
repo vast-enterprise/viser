@@ -806,7 +806,7 @@ export interface GuiRgbMessage {
  */
 export interface GuiRgbaMessage {
   type: "GuiRgbaMessage";
-  value: [number, number, number, number];
+  value: string;
   uuid: string;
   container_uuid: string;
   props: {
