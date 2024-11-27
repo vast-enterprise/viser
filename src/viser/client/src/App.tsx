@@ -255,6 +255,9 @@ function ViewerContents({ children }: { children: React.ReactNode }) {
               display: "flex",
             }}
           >
+            {viewer.messageSource == "websocket" ? (
+              <ControlPanel control_layout={controlLayout} />
+            ) : null}
             <Box
               style={(theme) => ({
                 backgroundColor: darkMode ? theme.colors.dark[9] : "#fff",
@@ -272,9 +275,6 @@ function ViewerContents({ children }: { children: React.ReactNode }) {
                 <ViserLogo />
               ) : null}
             </Box>
-            {viewer.messageSource == "websocket" ? (
-              <ControlPanel control_layout={controlLayout} />
-            ) : null}
           </Box>
         </Box>
       </MantineProvider>

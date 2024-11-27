@@ -89,7 +89,7 @@ export default function SidebarPanel({
           width: collapsed ? 0 : width,
           top: 0,
           bottom: 0,
-          right: 0,
+          left: 0,
           position: "absolute",
           boxSizing: "content-box",
           transition: "width 0.5s 0s",

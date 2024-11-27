@@ -66,7 +66,7 @@ export default function ControlPanel(props: {
       : controlWidthString == "medium"
         ? "20em"
         : controlWidthString == "large"
-          ? "24em"
+          ? "32em"
           : null
   )!;
 

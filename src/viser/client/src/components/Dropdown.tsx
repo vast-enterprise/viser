@@ -2,7 +2,7 @@ import * as React from "react";
 import { GuiComponentContext } from "../ControlPanel/GuiComponentContext";
 import { ViserInputComponent } from "./common";
 import { GuiDropdownMessage } from "../WebsocketMessages";
-import { Select } from "@mantine/core";
+import { SegmentedControl, Text } from "@mantine/core";
 
 export default function DropdownComponent({
   uuid,
@@ -10,31 +10,29 @@ export default function DropdownComponent({
   props: { hint, label, disabled, visible, options },
 }: GuiDropdownMessage) {
   const { setValue } = React.useContext(GuiComponentContext)!;
+  
   if (!visible) return <></>;
+
+  // Convert options array to SegmentedControl data format
+  const segmentedData = options.map(option => ({
+    value: option,
+    label: option
+  }));
+
   return (
-    <ViserInputComponent {...{ uuid, hint, label }}>
-      <Select
+    <ViserInputComponent {...{ uuid, hint }}>
+      <Text size="sm" fw={800} pl={3} mb={3}>
+        { label }
+      </Text>
+      <SegmentedControl
         id={uuid}
-        radius="xs"
         value={value}
-        data={options}
-        onChange={(value) => value !== null && setValue(uuid, value)}
+        data={segmentedData}
+        onChange={(value) => setValue(uuid, value)}
         disabled={disabled}
-        searchable
-        maxDropdownHeight={400}
-        size="xs"
-        rightSectionWidth="1.2em"
-        styles={{
-          input: {
-            padding: "0.5em",
-            letterSpacing: "-0.5px",
-            minHeight: "1.625rem",
-            height: "1.625rem",
-          },
-        }}
-        // zIndex of dropdown should be >modal zIndex.
-        // On edge cases: it seems like existing dropdowns are always closed when a new modal is opened.
-        comboboxProps={{ zIndex: 1000 }}
+        size="sm"
+        radius="sm"
+        fullWidth
       />
     </ViserInputComponent>
   );
