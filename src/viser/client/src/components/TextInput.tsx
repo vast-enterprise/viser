@@ -29,6 +29,8 @@ export default function TextInputComponent({
           },
         }}
         disabled={disabled}
+        mt="3"
+        mb="3"
       />
     </ViserInputComponent>
   );

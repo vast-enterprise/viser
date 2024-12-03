@@ -21,7 +21,7 @@ export default function DropdownComponent({
 
   return (
     <ViserInputComponent {...{ uuid, hint }}>
-      <Text size="sm" fw={800} pl={3} mb={3}>
+      <Text size="md" fw={800} pl={3} mb={3} mt={3}>
         { label }
       </Text>
       <SegmentedControl

@@ -17,6 +17,7 @@ from typing import (
     Sequence,
     Tuple,
     TypeVar,
+    Union,
     cast,
     overload,
 )
@@ -392,7 +393,7 @@ class GuiApi:
         *,
         titlebar_content: theme.TitlebarConfig | None = None,
         control_layout: Literal["floating", "collapsible", "fixed"] = "floating",
-        control_width: Literal["small", "medium", "large"] = "medium",
+        control_width: Union[str, Literal["small", "medium", "large"]] = "medium",
         dark_mode: bool = False,
         show_logo: bool = True,
         show_share_button: bool = True,

@@ -5,6 +5,7 @@ import { Box } from "@mantine/core";
 import { Button } from "@mantine/core";
 import React from "react";
 import { htmlIconWrapper } from "./ComponentStyles.css";
+import { IconDice3 } from '@tabler/icons-react';
 
 export default function ButtonComponent({
   uuid,
@@ -14,11 +15,11 @@ export default function ButtonComponent({
   if (!(visible ?? true)) return <></>;
 
   return (
-    <Box mx="xs" mb="0.5em">
+    <Box mx="xs" mb="3" mt="3">
       <Button
         id={uuid}
         fullWidth
-        color={color ?? undefined}
+        color={"#F0D240"}
         onClick={() =>
           messageSender({
             type: "GuiUpdateMessage",
@@ -26,19 +27,10 @@ export default function ButtonComponent({
             updates: { value: true },
           })
         }
-        style={{
-          height: "2.125em",
-        }}
         disabled={disabled ?? false}
-        size="sm"
-        leftSection={
-          icon_html === null ? undefined : (
-            <div
-              className={htmlIconWrapper}
-              dangerouslySetInnerHTML={{ __html: icon_html }}
-            />
-          )
-        }
+        size="md"
+        radius="md"
+        leftSection={<IconDice3 color="#222222" />}
       >
         {label}
       </Button>

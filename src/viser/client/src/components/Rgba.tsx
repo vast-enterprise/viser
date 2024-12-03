@@ -1,10 +1,14 @@
 import * as React from "react";
 import { ActionIcon } from '@mantine/core';
-import { IconArrowBackUp, IconArrowForwardUp, IconTrash } from '@tabler/icons-react';
+import { IconArrowBackUp, IconArrowForwardUp, IconTrash, IconEraser } from '@tabler/icons-react';
 import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas";
 import { GuiComponentContext } from "../ControlPanel/GuiComponentContext";
 import { ViserInputComponent } from "./common";
 import { GuiRgbaMessage } from "../WebsocketMessages";
+
+const cursorSize = 8; // Adjust this to change cursor size
+const drawCursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="${cursorSize*2}" width="${cursorSize*2}" viewBox="0 0 ${cursorSize*2} ${cursorSize*2}"><circle cx="${cursorSize}" cy="${cursorSize}" r="${cursorSize}" fill="black"/></svg>') ${cursorSize} ${cursorSize}, auto`;
+const eraseCursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="${cursorSize*2}" width="${cursorSize*2}" viewBox="0 0 ${cursorSize*2} ${cursorSize*2}"><circle cx="${cursorSize}" cy="${cursorSize}" r="${cursorSize}" fill="white" stroke="black" stroke-width="1"/></svg>') ${cursorSize} ${cursorSize}, auto`;
 
 export default function RgbaComponent({
   uuid,
@@ -13,9 +17,8 @@ export default function RgbaComponent({
 }: GuiRgbaMessage) {
   const { setValue } = React.useContext(GuiComponentContext)!;
   const canvasRef = React.useRef<ReactSketchCanvasRef>(null);
+  const [isEraserMode, setIsEraserMode] = React.useState(false);
   
-  if (!visible) return <></>;
-
   const styles = {
     border: "0.0625rem solid #9c9c9c",
     borderRadius: "0.25rem",
@@ -24,12 +27,16 @@ export default function RgbaComponent({
     left: 0,
     width: "100%",
     height: "100%",
+    userSelect: "none",
+  };
+
+  const wrapperStyles = {
+    width: "100%",
+    userSelect: "none",
   };
 
   const handleChange = async (stroke: { paths: any[]; } | null) => {
-    if (stroke && stroke.paths.length <= 1) {
-      return;
-    }
+    if (stroke && stroke.paths.length <= 1) return;
     if (canvasRef.current) {
       try {
         const data = await canvasRef.current.exportImage("png");
@@ -40,36 +47,39 @@ export default function RgbaComponent({
     }
   };  
 
+  const toggleEraser = () => {
+    const newMode = !isEraserMode;
+    setIsEraserMode(newMode);
+    canvasRef.current?.eraseMode(newMode);
+  };
+
   const handleUndo = () => {
     canvasRef.current?.undo();
-    // We need to update the value after undo
     handleChange(null);
   };
 
   const handleRedo = () => {
     canvasRef.current?.redo();
-    // We need to update the value after redo
     handleChange(null);
   };
 
   const handleClear = () => {
     canvasRef.current?.clearCanvas();
-    // We need to update the value after clear
     handleChange(null);
   };  
 
   return (
     <ViserInputComponent {...{ uuid, hint }}>
-      <div style={{ width: "100%" }}>
+      <div style={wrapperStyles}>
           {!disabled && (
-            <div style={{ margin: "0.5rem 0 0.5rem 0", display: "flex", gap: "0.5rem", justifyContent: "center" }}>
-              <ActionIcon variant="filled" aria-label="ArrowBack" color="#F0D240" size="lg" radius="xl" onClick={handleUndo}>
+            <div style={{ margin: "0.5rem 0 0.5rem 0", display: "flex", gap: "0.5rem", justifyContent: "right" }}>
+              <ActionIcon variant="filled" color="#F0D240" size="lg" radius="sm" onClick={handleUndo}>
                 <IconArrowBackUp style={{ width: '70%', height: '70%' }} stroke={1.5} />
               </ActionIcon>
-              <ActionIcon variant="filled" aria-label="Settings" color="#F0D240" size="lg" radius="xl" onClick={handleRedo}>
+              <ActionIcon variant="filled" color="#F0D240" size="lg" radius="sm" onClick={handleRedo}>
                 <IconArrowForwardUp style={{ width: '70%', height: '70%' }} stroke={1.5} />
               </ActionIcon>
-              <ActionIcon variant="filled" aria-label="Settings" color="#F0D240" size="lg" radius="xl" onClick={handleClear}>
+              <ActionIcon variant="filled" color="#F0D240" size="lg" radius="sm" onClick={handleClear}>
                 <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
               </ActionIcon>            
             </div>
