@@ -55,7 +55,7 @@ export default function NumberInputComponent({
         min={min ?? undefined}
         max={max ?? undefined}
         step={step}
-        size="sm"
+        size="lg"
         onChange={(newValue) => {
           // Ignore empty values.
           newValue !== "" && setValue(uuid, newValue);
@@ -71,7 +71,7 @@ export default function NumberInputComponent({
             aria-label="Randomize"
             onClick={() => setRandomValue()}
             style={{
-              paddingRight: "0.5rem"
+              paddingRight: "0rem"
             }}
           />
         }        

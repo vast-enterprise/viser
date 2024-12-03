@@ -66,7 +66,7 @@ export default function ControlPanel(props: {
       : controlWidthString == "medium"
         ? "20em"
         : controlWidthString == "large"
-          ? "32em"
+          ? "42em"
           : null
   )!;
 
@@ -141,11 +141,6 @@ export default function ControlPanel(props: {
         width={controlWidth}
         collapsible={props.control_layout === "collapsible"}
       >
-        <SidebarPanel.Handle>
-          <ConnectionStatus />
-          <ShareButton />
-          {generatedServerToggleButton}
-        </SidebarPanel.Handle>
         <SidebarPanel.Contents>{panelContents}</SidebarPanel.Contents>
       </SidebarPanel>
     );

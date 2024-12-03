@@ -30,7 +30,7 @@ export default function DropdownComponent({
         data={segmentedData}
         onChange={(value) => setValue(uuid, value)}
         disabled={disabled}
-        size="sm"
+        size="lg"
         radius="sm"
         fullWidth
       />
