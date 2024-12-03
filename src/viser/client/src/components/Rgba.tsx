@@ -1,4 +1,5 @@
 import * as React from "react";
+import { CSSProperties } from 'react';
 import { ActionIcon } from '@mantine/core';
 import { IconArrowBackUp, IconArrowForwardUp, IconTrash, IconEraser } from '@tabler/icons-react';
 import { ReactSketchCanvas, ReactSketchCanvasRef } from "react-sketch-canvas";
@@ -19,7 +20,7 @@ export default function RgbaComponent({
   const canvasRef = React.useRef<ReactSketchCanvasRef>(null);
   const [isEraserMode, setIsEraserMode] = React.useState(false);
   
-  const styles = {
+  const styles: CSSProperties = {
     border: "0.0625rem solid #9c9c9c",
     borderRadius: "0.25rem",
     position: "absolute" as const,
@@ -30,7 +31,7 @@ export default function RgbaComponent({
     userSelect: "none",
   };
 
-  const wrapperStyles = {
+  const wrapperStyles: CSSProperties = {
     width: "100%",
     userSelect: "none",
   };
