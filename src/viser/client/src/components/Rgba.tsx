@@ -36,6 +36,15 @@ export default function RgbaComponent({
     userSelect: "none",
   };
 
+  const buttonGroupStyles: React.CSSProperties = {
+    position: "absolute",
+    top: "1rem",
+    right: "1rem",
+    zIndex: 1,
+    display: "flex",
+    gap: "0.5rem",
+  };
+
   const handleChange = async (stroke: { paths: any[]; } | null) => {
     if (stroke && stroke.paths.length <= 1) return;
     if (canvasRef.current) {
@@ -73,14 +82,17 @@ export default function RgbaComponent({
     <ViserInputComponent {...{ uuid, hint }}>
       <div style={wrapperStyles}>
           {!disabled && (
-            <div style={{ margin: "0.5rem 0 0.5rem 0", display: "flex", gap: "0.5rem", justifyContent: "right" }}>
-              <ActionIcon variant="filled" color="#F0D240" size="lg" radius="sm" onClick={handleUndo}>
-                <IconArrowBackUp style={{ width: '70%', height: '70%' }} stroke={1.5} />
+            <div style={buttonGroupStyles}>
+              <ActionIcon 
+                variant="filled"
+                color={isEraserMode ? "#333333" : "#F0D240"}
+                size="xl" 
+                radius="sm" 
+                onClick={toggleEraser}
+              >
+                <IconEraser style={{ width: '70%', height: '70%' }} stroke={1.5} />
               </ActionIcon>
-              <ActionIcon variant="filled" color="#F0D240" size="lg" radius="sm" onClick={handleRedo}>
-                <IconArrowForwardUp style={{ width: '70%', height: '70%' }} stroke={1.5} />
-              </ActionIcon>
-              <ActionIcon variant="filled" color="#F0D240" size="lg" radius="sm" onClick={handleClear}>
+              <ActionIcon variant="filled" color="#F0D240" size="xl" radius="sm" onClick={handleClear}>
                 <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
               </ActionIcon>            
             </div>
@@ -92,6 +104,7 @@ export default function RgbaComponent({
             width="100%"
             height="100%"
             strokeWidth={4}
+            eraserWidth={48}
             strokeColor="black"
             onStroke={handleChange}
             allowOnlyPointerType="all"

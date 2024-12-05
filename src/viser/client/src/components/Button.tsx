@@ -28,7 +28,7 @@ export default function ButtonComponent({
           })
         }
         disabled={disabled ?? false}
-        size="md"
+        size="xl"
         radius="md"
         leftSection={<IconDice3 color="#222222" />}
       >
